@@ -26,7 +26,7 @@ namespace lab19CreateAPI
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ToDoContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ToDoContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductionDb")));
 
             services.AddMvc();
         }
@@ -40,11 +40,7 @@ namespace lab19CreateAPI
             }
 
             app.UseMvc();
-
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync("Hello World!");
-            //});
+            
         }
     }
 }

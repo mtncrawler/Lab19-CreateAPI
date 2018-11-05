@@ -19,13 +19,13 @@ namespace lab19CreateAPI.Controllers
         {
             _context = context;
 
-            if (_context.Todos.Count() == 0)
-            {
-                // Create a new TodoItem if collection is empty,
-                // which means you can't delete all TodoItems.
-                _context.Todos.Add(new ToDo { Task = "Item1" });
-                _context.SaveChanges();
-            }
+            //if (_context.Todos.Count() == 0)
+            //{
+            //    // Create a new TodoItem if collection is empty,
+            //    // which means you can't delete all TodoItems.
+            //    _context.Todos.Add(new ToDo { Task = "Item1" });
+            //    _context.SaveChanges();
+            //}
         }
 
         // GET: api/ToDo
@@ -45,7 +45,6 @@ namespace lab19CreateAPI.Controllers
             }
 
             var toDo = await _context.Todos.FindAsync(id);
-            var toDoList = await _context.Lists.FindAsync(id);
           
             if (toDo == null)
             {
