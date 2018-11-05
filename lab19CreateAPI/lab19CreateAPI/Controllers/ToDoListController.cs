@@ -11,56 +11,56 @@ namespace lab19CreateAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ToDosController : ControllerBase
+    public class ToDoListController : ControllerBase
     {
-        private readonly ToDoList _context;
+        private readonly ToDoContext _context;
 
-        public ToDosController(ToDoList context)
+        public ToDoListController(ToDoContext context)
         {
             _context = context;
         }
 
-        // GET: api/ToDos
+        // GET: api/ToDoList
         [HttpGet]
-        public IEnumerable<ToDo> GetTodos()
+        public IEnumerable<ToDoList> GetLists()
         {
-            return _context.Todos;
+            return _context.Lists;
         }
 
-        // GET: api/ToDos/5
+        // GET: api/ToDoList/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetToDo([FromRoute] int id)
+        public async Task<IActionResult> GetToDoList([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var toDo = await _context.Todos.FindAsync(id);
+            var toDoList = await _context.Lists.FindAsync(id);
 
-            if (toDo == null)
+            if (toDoList == null)
             {
                 return NotFound();
             }
 
-            return Ok(toDo);
+            return Ok(toDoList);
         }
 
-        // PUT: api/ToDos/5
+        // PUT: api/ToDoList/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutToDo([FromRoute] int id, [FromBody] ToDo toDo)
+        public async Task<IActionResult> PutToDoList([FromRoute] int id, [FromBody] ToDoList toDoList)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != toDo.ID)
+            if (id != toDoList.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(toDo).State = EntityState.Modified;
+            _context.Entry(toDoList).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace lab19CreateAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ToDoExists(id))
+                if (!ToDoListExists(id))
                 {
                     return NotFound();
                 }
@@ -81,45 +81,45 @@ namespace lab19CreateAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/ToDos
+        // POST: api/ToDoList
         [HttpPost]
-        public async Task<IActionResult> PostToDo([FromBody] ToDo toDo)
+        public async Task<IActionResult> PostToDoList([FromBody] ToDoList toDoList)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Todos.Add(toDo);
+            _context.Lists.Add(toDoList);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetToDo", new { id = toDo.ID }, toDo);
+            return CreatedAtAction("GetToDoList", new { id = toDoList.ID }, toDoList);
         }
 
-        // DELETE: api/ToDos/5
+        // DELETE: api/ToDoList/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteToDo([FromRoute] int id)
+        public async Task<IActionResult> DeleteToDoList([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var toDo = await _context.Todos.FindAsync(id);
-            if (toDo == null)
+            var toDoList = await _context.Lists.FindAsync(id);
+            if (toDoList == null)
             {
                 return NotFound();
             }
 
-            _context.Todos.Remove(toDo);
+            _context.Lists.Remove(toDoList);
             await _context.SaveChangesAsync();
 
-            return Ok(toDo);
+            return Ok(toDoList);
         }
 
-        private bool ToDoExists(int id)
+        private bool ToDoListExists(int id)
         {
-            return _context.Todos.Any(e => e.ID == id);
+            return _context.Lists.Any(e => e.ID == id);
         }
     }
 }

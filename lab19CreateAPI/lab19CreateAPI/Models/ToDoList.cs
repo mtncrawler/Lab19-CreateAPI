@@ -1,18 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace lab19CreateAPI.Models
 {
-    public class ToDoList : DbContext
+    public class ToDoList
     {
-        public ToDoList(DbContextOptions<ToDoList> options) : base(options)
-        {
+        public int ID { get; set; }
 
-        }
+        public string Title { get; set; }
 
-        public DbSet<ToDo> Todos { get; set; }
+        public ICollection<ToDo> ToDos { get; set; }
     }
 }
