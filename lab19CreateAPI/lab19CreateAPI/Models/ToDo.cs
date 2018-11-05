@@ -13,6 +13,6 @@ namespace lab19CreateAPI.Models
 
         public bool IsDone { get; set; }
 
-        public ToDoList List { get; set; }
+        public int ToDoListID { get; set; }
     }
 }

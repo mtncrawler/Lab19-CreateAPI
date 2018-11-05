@@ -22,9 +22,9 @@ namespace lab19CreateAPI.Controllers
 
         // GET: api/ToDoList
         [HttpGet]
-        public IEnumerable<ToDoList> GetLists()
+        public async Task<List<ToDoList>> GetLists()
         {
-            return _context.Lists;
+            return await _context.Lists.ToListAsync();
         }
 
         // GET: api/ToDoList/5
